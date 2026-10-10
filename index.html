@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Кофейня «Фильтр» — ул. Бурхана Шахиди, 7, Казань</title>
+  <meta name="description" content="Кофейня «Фильтр» в Казани: авторский кофе, книги и винил, летняя веранда. ул. Бурхана Шахиди, 7. Рейтинг 4.7 на Яндекс Картах." />
+  <meta name="theme-color" content="#0b1017" />
+
+  <style>
+    /* =====================  Tokens  ===================== */
+    :root {
+      --bg: #0b1017;
+      --bg-alt: #0e141d;
+      --surface: #131b26;
+      --surface-hover: #18222f;
+      --line: rgba(160, 190, 225, 0.10);
+      --line-strong: rgba(160, 190, 225, 0.18);
+
+      --text: #e8eef5;
+      --muted: #93a2b5;
+      --accent: #3a6ea5;
+      --accent-bright: #6b9ad0;
+      --accent-soft: rgba(90, 140, 200, 0.12);
+      --accent-line: rgba(90, 140, 200, 0.36);
+
+      --radius: 16px;
+      --radius-sm: 11px;
+      --shadow: 0 24px 55px -30px rgba(0, 0, 0, 0.95);
+
+      --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Consolas, monospace;
+
+      --maxw: 1120px;
+      --header-h: 72px;
+    }
+
+    /* =====================  Reset  ===================== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.65;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 560px;
+      background: radial-gradient(
+        62% 100% at 50% 0%,
+        rgba(90, 140, 200, 0.16),
+        transparent 70%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    h1, h2, h3 { margin: 0; line-height: 1.12; letter-spacing: -0.02em; font-weight: 650; }
+    p { margin: 0; }
+    ul, ol { margin: 0; padding: 0; list-style: none; }
+    a { color: inherit; text-decoration: none; }
+    img, svg { max-width: 100%; display: block; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* =====================  Skip link  ===================== */
+    .skip-link {
+      position: absolute;
+      top: 8px; left: 8px;
+      transform: translateY(-150%);
+      padding: 10px 16px;
+      background: var(--accent);
+      color: #0b1017;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      z-index: 100;
+      transition: transform .2s ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    /* =====================  Layout  ===================== */
+    .container {
+      width: 100%;
+      max-width: var(--maxw);
+      margin-inline: auto;
+      padding-inline: clamp(20px, 5vw, 40px);
+    }
+
+    .section {
+      position: relative;
+      z-index: 1;
+      padding-block: clamp(56px, 9vw, 104px);
+      scroll-margin-top: calc(var(--header-h) + 16px);
+    }
+
+    .section-alt {
+      background-color: var(--bg-alt);
+      border-block: 1px solid var(--line);
+    }
+
+    .section-head { max-width: 62ch; margin-bottom: clamp(28px, 4.5vw, 48px); }
+    .section-head h2 { font-size: clamp(1.6rem, 3.6vw, 2.4rem); }
+    .section-lead { margin-top: 14px; color: var(--muted); font-size: 1.05rem; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-bright);
+    }
+
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    /* =====================  Buttons  ===================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color .2s ease, border-color .2s ease,
+        color .2s ease, transform .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #eaf2fb;
+      box-shadow: 0 14px 32px -16px rgba(20, 50, 90, 0.85);
+    }
+    .btn-primary:hover { background: var(--accent-bright); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--line-strong);
+    }
+    .btn-ghost:hover { border-color: var(--accent-line); background: var(--accent-soft); }
+
+    .btn-lg { padding: 15px 30px; font-size: 1.05rem; }
+
+    /* =====================  Header  ===================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 16, 23, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner {
+      min-height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 650; }
+
+    .nav { display: flex; align-items: center; gap: 26px; }
+    .nav-list { display: flex; align-items: center; gap: 26px; }
+    .nav-list a { font-size: 0.95rem; color: var(--muted); transition: color .2s ease; }
+    .nav-list a:hover { color: var(--text); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px; height: 44px;
+      padding: 0;
+      background: transparent;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .nav-toggle-bar {
+      display: block; width: 20px; height: 2px;
+      margin-inline: auto; background: var(--text); border-radius: 2px;
+      transition: transform .25s ease, opacity .2s ease;
+    }
+
+    /* =====================  Hero  ===================== */
+    .hero { position: relative; z-index: 1; padding-block: clamp(56px, 11vw, 120px) clamp(48px, 8vw, 88px); }
+    .hero-inner { max-width: 860px; }
+    .hero-title {
+      font-size: clamp(2.1rem, 6vw, 3.8rem);
+      font-weight: 680;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    .hero-title .accent { color: var(--accent-bright); }
+    .hero-lead {
+      max-width: 54ch;
+      margin-top: 22px;
+      font-size: clamp(1.02rem, 2vw, 1.22rem);
+      color: var(--muted);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 26px;
+      margin-top: 30px;
+      align-items: center;
+    }
+    .rating {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-weight: 650;
+    }
+    .rating .star { color: var(--accent-bright); font-size: 1.1rem; }
+    .rating small { color: var(--muted); font-weight: 500; }
+    .hero-address { color: var(--muted); }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+
+    /* =====================  Map  ===================== */
+    .map-wrap {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .map-frame-wrap {
+      position: relative;
+      width: 100%;
+      height: 460px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .map-frame {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .map-panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(22px, 3vw, 30px);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .info-row { display: flex; gap: 12px; }
+    .info-ico {
+      flex: none;
+      width: 34px; height: 34px;
+      display: grid; place-items: center;
+      border-radius: 9px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-line);
+      color: var(--accent-bright);
+      font-size: 1rem;
+    }
+    .info-row h3 { font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+    .info-row p { margin-top: 2px; }
+    .info-row a { color: var(--accent-bright); }
+    .info-row a:hover { text-decoration: underline; }
+
+    /* =====================  Feature grid  ===================== */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+    }
+    .feature span.f-ico { font-size: 1.25rem; }
+    .feature p { font-size: 0.97rem; }
+
+    .price-note {
+      margin-top: 22px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .price-note strong { color: var(--text); }
+
+    /* =====================  Menu  ===================== */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    .menu-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(20px, 2.6vw, 26px);
+      height: 100%;
+    }
+
+    .menu-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.12rem;
+      padding-bottom: 13px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .menu-card h3 .m-ico { font-size: 1.25rem; }
+
+    .menu-list { display: flex; flex-direction: column; gap: 11px; }
+    .menu-list li { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
+    .mi-name { font-weight: 500; }
+    .mi-note { display: block; color: var(--muted); font-size: 0.84rem; font-weight: 400; }
+    .mi-price {
+      white-space: nowrap;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent-bright);
+    }
+
+    .menu-note {
+      margin-top: 22px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .menu-note a { color: var(--accent-bright); }
+    .menu-note a:hover { text-decoration: underline; }
+
+    /* =====================  Gallery  ===================== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .gallery-item {
+      position: relative;
+      margin: 0;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      aspect-ratio: 4 / 5;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-item figcaption {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 30px 14px 12px;
+      font-size: 0.84rem;
+      color: #fff;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .75));
+    }
+
+    /* =====================  Contact / footer  ===================== */
+    .contact { text-align: center; }
+    .contact-inner { max-width: 660px; margin-inline: auto; display: flex; flex-direction: column; align-items: center; }
+    .contact h2 { font-size: clamp(1.7rem, 4vw, 2.6rem); text-wrap: balance; }
+    .contact-lead { margin: 18px 0 30px; color: var(--muted); font-size: 1.06rem; }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+    .site-footer { border-top: 1px solid var(--line); padding-block: 36px; background: var(--bg-alt); }
+    .footer-inner {
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .footer-brand { font-weight: 600; }
+    .footer-legal { color: var(--muted); font-size: 0.86rem; }
+
+    /* =====================  Reveal  ===================== */
+    .js [data-reveal] {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+    /* =====================  Responsive  ===================== */
+    @media (max-width: 900px) {
+      .map-wrap { grid-template-columns: 1fr; }
+      .map-frame-wrap { height: 380px; }
+      .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 820px) {
+      .nav-toggle { display: flex; }
+      .nav {
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px clamp(20px, 5vw, 40px) 24px;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line-strong);
+        box-shadow: var(--shadow);
+        opacity: 0; visibility: hidden; transform: translateY(-10px);
+        transition: opacity .25s ease, transform .25s ease, visibility .25s;
+      }
+      .site-header.is-open .nav { opacity: 1; visibility: visible; transform: translateY(0); }
+      .nav-list { flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-list li { border-bottom: 1px solid var(--line); }
+      .nav-list a { display: block; padding: 16px 2px; font-size: 1.05rem; color: var(--text); }
+
+      .site-header.is-open .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .site-header.is-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+      .site-header.is-open .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    }
+
+    @media (max-width: 560px) {
+      .feature-grid { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-actions .btn, .contact-actions .btn { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        transition-duration: .001ms !important;
+      }
+      .js [data-reveal] { opacity: 1; transform: none; }
+      .btn:hover, .card:hover { transform: none; }
+    }
+  </style>
+
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Фильтр, наверх">
+        <span>Фильтр</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Открыть меню">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav" id="primary-nav" aria-label="Основная навигация">
+        <ul class="nav-list">
+          <li><a href="#menu">Меню</a></li>
+          <li><a href="#gallery">Фото</a></li>
+          <li><a href="#map">Карта</a></li>
+          <li><a href="#features">Особенности</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+        <a class="btn btn-primary" href="tel:+79524042070">Позвонить</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <p class="eyebrow" data-reveal><span class="dot" aria-hidden="true"></span> Кофейня · Казань</p>
+        <h1 id="hero-title" class="hero-title" data-reveal>
+          Кофейня <span class="accent">«Фильтр»</span> — кофе, книги и винил.
+        </h1>
+        <p class="hero-lead" data-reveal>
+          Уютное место, где можно отдохнуть от городской суеты, послушать
+          спокойную музыку и выпить ароматный кофе на любой вкус.
+        </p>
+
+        <div class="hero-meta" data-reveal>
+          <span class="rating">
+            <span class="star" aria-hidden="true">★</span>
+            4.7 <small>· 164 оценки на Яндекс Картах</small>
+          </span>
+          <span class="hero-address">ул. Бурхана Шахиди, 7, Казань · 1 этаж</span>
+        </div>
+
+        <div class="hero-actions" data-reveal>
+          <a class="btn btn-primary" href="#map">Показать на карте</a>
+          <a class="btn btn-ghost" href="tel:+79524042070">+7 (952) 404-20-70</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section class="section section-alt" id="map" aria-labelledby="map-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Расположение</p>
+          <h2 id="map-title">Как нас найти</h2>
+          <p class="section-lead">Около 1 км от метро «Кремлёвская». Карта — нажмите и приближайте.</p>
+        </div>
+
+        <div class="map-wrap">
+          <div class="map-frame-wrap" data-reveal>
+            <iframe
+              class="map-frame"
+              title="Карта: кофейня «Фильтр», ул. Бурхана Шахиди, 7, Казань"
+              src="https://yandex.ru/map-widget/v1/?ll=49.103816%2C55.788321&z=17&mode=search&oid=155461844370&ol=biz&pt=49.103816,55.788321,pm2rdm"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <div class="map-panel" data-reveal>
+            <div class="info-row">
+              <span class="info-ico" aria-hidden="true">📍</span>
+              <div>
+                <h3>Адрес</h3>
+                <p>ул. Бурхана Шахиди, 7, Казань<br />1 этаж</p>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="info-ico" aria-hidden="true">📞</span>
+              <div>
+                <h3>Телефон</h3>
+                <p><a href="tel:+79524042070">+7 (952) 404-20-70</a></p>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="info-ico" aria-hidden="true">🚇</span>
+              <div>
+                <h3>Метро</h3>
+                <p>«Кремлёвская» — около 960 м</p>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="info-ico" aria-hidden="true">🕘</span>
+              <div>
+                <h3>Часы работы</h3>
+                <p>Ежедневно, закрытие в 21:00.<br />
+                  Актуальный статус — на
+                  <a href="https://yandex.ru/maps/org/filtr/155461844370/" target="_blank" rel="noopener">Яндекс Картах</a>.</p>
+              </div>
+            </div>
+
+            <a class="btn btn-primary" href="https://yandex.ru/maps/?rtext=~55.788321,49.103816&rtt=auto" target="_blank" rel="noopener">Построить маршрут</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu -->
+    <section class="section" id="menu" aria-labelledby="menu-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Меню</p>
+          <h2 id="menu-title">Что наливаем и подаём</h2>
+          <p class="section-lead">Кофе, авторские напитки и десерты. Часть позиций — по данным карточек заведения.</p>
+        </div>
+
+        <div class="menu-grid">
+          <article class="menu-card" data-reveal>
+            <h3><span class="m-ico" aria-hidden="true">☕</span> Кофе</h3>
+            <ul class="menu-list">
+              <li><span class="mi-name">Капучино</span><span class="mi-price">300–340 ₽</span></li>
+              <li><span class="mi-name">Эспрессо, американо, латте, флэт уайт</span></li>
+              <li><span class="mi-name">Кофе с собой</span></li>
+            </ul>
+          </article>
+
+          <article class="menu-card" data-reveal>
+            <h3><span class="m-ico" aria-hidden="true">🧋</span> Не только кофе</h3>
+            <ul class="menu-list">
+              <li><span class="mi-name">Матча</span></li>
+              <li><span class="mi-name">Бамбл-кофе</span></li>
+              <li><span class="mi-name">Айс-кофе и айс-какао</span></li>
+              <li><span class="mi-name">Какао и горячий шоколад</span></li>
+              <li><span class="mi-name">Чай <span class="mi-note">есть и с собой</span></span></li>
+              <li><span class="mi-name">Лимонад</span></li>
+            </ul>
+          </article>
+
+          <article class="menu-card" data-reveal>
+            <h3><span class="m-ico" aria-hidden="true">🍰</span> Десерты и еда</h3>
+            <ul class="menu-list">
+              <li><span class="mi-name">Фисташковые эклеры</span></li>
+              <li><span class="mi-name">Шоколадный тарт</span></li>
+              <li><span class="mi-name">Десерты с малиной</span></li>
+              <li><span class="mi-name">Пончики и панкейки</span></li>
+              <li><span class="mi-name">Завтраки</span></li>
+              <li><span class="mi-name">Еда навынос</span></li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="menu-note" data-reveal>
+          Средний чек — около 500 ₽. Полное меню и актуальные цены — в кофейне;
+          часть позиций собрана из официальных карточек заведения
+          (<a href="https://yandex.ru/maps/org/filtr/155461844370/" target="_blank" rel="noopener">Яндекс Карты</a>,
+          <a href="https://2gis.ru/kazan/firm/70000001025316579/tab/menu" target="_blank" rel="noopener">2ГИС</a>).
+          Оплата: наличными, картой, QR-код.
+        </p>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section section-alt" id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Фото</p>
+          <h2 id="gallery-title">Атмосфера «Фильтра»</h2>
+          <p class="section-lead">Оригинальные фотографии из карточки заведения.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <figure class="gallery-item" data-reveal>
+            <img src="images/interior-red.jpg" alt="Красный зал кофейни «Фильтр»: книжный стеллаж с винилом, кресла, гитара и старые телевизоры" loading="lazy" />
+            <figcaption>Красный зал с винилом и книгами</figcaption>
+          </figure>
+          <figure class="gallery-item" data-reveal>
+            <img src="images/interior-hall.jpg" alt="Зал кофейни «Фильтр» со светлым кирпичом, деревянными столиками и растениями" loading="lazy" />
+            <figcaption>Зал со светлым кирпичом</figcaption>
+          </figure>
+          <figure class="gallery-item" data-reveal>
+            <img src="images/latte-hand.jpg" alt="Чашка кофе с латте-артом в руке на деревянной террасе" loading="lazy" />
+            <figcaption>Кофе на веранде</figcaption>
+          </figure>
+          <figure class="gallery-item" data-reveal>
+            <img src="images/cappuccino-table.jpg" alt="Капучино с латте-артом на белом столике в тени листьев" loading="lazy" />
+            <figcaption>Капучино</figcaption>
+          </figure>
+          <figure class="gallery-item" data-reveal>
+            <img src="images/drink-anise.jpg" alt="Сезонный напиток в стакане с бадьяном на белой скамейке" loading="lazy" />
+            <figcaption>Сезонный напиток</figcaption>
+          </figure>
+          <figure class="gallery-item" data-reveal>
+            <img src="images/cappuccino-deck.jpg" alt="Чашка капучино на деревянной террасе" loading="lazy" />
+            <figcaption>На террасе</figcaption>
+          </figure>
+          <figure class="gallery-item" data-reveal>
+            <img src="images/dessert-chocolate.jpg" alt="Шоколадный тарт с орехами на металлической тарелке" loading="lazy" />
+            <figcaption>Шоколадный тарт</figcaption>
+          </figure>
+          <figure class="gallery-item" data-reveal>
+            <img src="images/dessert-raspberry.jpg" alt="Десерт с белым шоколадом и малиной на тарелке" loading="lazy" />
+            <figcaption>Десерт с малиной</figcaption>
+          </figure>
+          <figure class="gallery-item" data-reveal>
+            <img src="images/flat-white.jpg" alt="Чашка кофе с латте-артом на столике под солнцем" loading="lazy" />
+            <figcaption>Кофе с латте-артом</figcaption>
+          </figure>
+          <figure class="gallery-item" data-reveal>
+            <img src="images/logo-filtr.jpg" alt="Красный логотип кофейни «Фильтр»" loading="lazy" />
+            <figcaption>Логотип «Фильтр»</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Особенности</p>
+          <h2 id="features-title">Что здесь есть</h2>
+          <p class="section-lead">По данным карточки заведения на Яндекс Картах.</p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature" data-reveal><span class="f-ico" aria-hidden="true">☕</span><p>Кофейня, кофе с собой</p></div>
+          <div class="feature" data-reveal><span class="f-ico" aria-hidden="true">🌿</span><p>Летняя веранда</p></div>
+          <div class="feature" data-reveal><span class="f-ico" aria-hidden="true">📶</span><p>Wi-Fi</p></div>
+          <div class="feature" data-reveal><span class="f-ico" aria-hidden="true">🐕</span><p>Можно с собакой</p></div>
+          <div class="feature" data-reveal><span class="f-ico" aria-hidden="true">🕌</span><p>Халяль</p></div>
+          <div class="feature" data-reveal><span class="f-ico" aria-hidden="true">🍵</span><p>Чай</p></div>
+          <div class="feature" data-reveal><span class="f-ico" aria-hidden="true">🥡</span><p>Еда навынос</p></div>
+          <div class="feature" data-reveal><span class="f-ico" aria-hidden="true">🚻</span><p>Туалет</p></div>
+          <div class="feature" data-reveal><span class="f-ico" aria-hidden="true">♿</span><p>Доступно для колясок</p></div>
+        </div>
+
+        <p class="price-note" data-reveal>
+          Средний чек: <strong>средние цены</strong>. Чашка капучино: <strong>300–340 ₽</strong>.
+          Оплата: наличными, картой, QR-код.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contacts -->
+    <section class="section section-alt" id="contacts" aria-labelledby="contacts-title">
+      <div class="container contact-inner" data-reveal>
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Контакты</p>
+        <h2 id="contacts-title">Заходите на кофе</h2>
+        <p class="contact-lead">
+          ул. Бурхана Шахиди, 7, Казань. Позвоните или постройте маршрут —
+          и до встречи в «Фильтре».
+        </p>
+        <div class="contact-actions">
+          <a class="btn btn-primary btn-lg" href="tel:+79524042070">Позвонить</a>
+          <a class="btn btn-ghost btn-lg" href="https://yandex.ru/maps/org/filtr/155461844370/" target="_blank" rel="noopener">Открыть в Яндекс Картах</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">Кофейня «Фильтр» — ул. Бурхана Шахиди, 7, Казань</p>
+      <p class="footer-legal">
+        Данные из Яндекс Карт · © <span id="year">2026</span>. Это неофициальная страница заведения.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---------- Мобильное меню ---------- */
+      var header = document.querySelector('.site-header');
+      var toggle = document.querySelector('.nav-toggle');
+      var nav = document.getElementById('primary-nav');
+
+      function closeMenu() {
+        if (!header || !toggle) return;
+        header.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Открыть меню');
+      }
+      function openMenu() {
+        if (!header || !toggle) return;
+        header.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Закрыть меню');
+      }
+
+      if (header && toggle && nav) {
+        toggle.addEventListener('click', function () {
+          header.classList.contains('is-open') ? closeMenu() : openMenu();
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('a')) closeMenu();
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && header.classList.contains('is-open')) {
+            closeMenu();
+            toggle.focus();
+          }
+        });
+        window.addEventListener('resize', function () {
+          if (window.innerWidth > 820) closeMenu();
+        });
+      }
+
+      /* ---------- Появление при скролле ---------- */
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var items = document.querySelectorAll('[data-reveal]');
+
+      if (reduce || !('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('is-visible'); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+        items.forEach(function (el) { io.observe(el); });
+      }
+
+      /* ---------- Год в подвале ---------- */
+      var year = document.getElementById('year');
+      if (year) year.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
+</html>
